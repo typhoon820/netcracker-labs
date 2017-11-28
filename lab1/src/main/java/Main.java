@@ -12,16 +12,24 @@ public class Main {
 
         LocalDate l = new LocalDate(2016,10,13);
 
-        Person n = new Person(1, "Nikita", new LocalDate(1996,3,22));
+        Person n = new Person("Zikita", new LocalDate(1996,3,22));
 
-        Person p2 = new Person(3, "Petya", new LocalDate(1996,3,22));
+        Person p2 = new Person("Petya", new LocalDate(2003,3,22));
 
-        Person p3 = new Person(2, "Vasya", new LocalDate(1996,3,22));
+        Person p3 = new Person( "Vasya", new LocalDate(1994,3,22));
         PersonRepository repository = new PersonRepository();
         repository.add(n);
         repository.add(p2);
         repository.add(p3);
-        repository.deleteByID(4);
-        System.out.println(repository.elementsCount());
+        repository.getByAge(21);
+        repository.sortByAge();
+        repository.sortById();
+        repository.sortBySurname();
+        System.out.println(repository.getByAge(21));
+
+
+        int[] ar = {1,2,3,4};
+        System.out.println(ar);
+
     }
 }

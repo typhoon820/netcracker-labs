@@ -1,7 +1,9 @@
-package Sort;
+package Repository.Sort;
 
 import Entity.Person;
 
-public interface SortStrategy {
-    Person[] execute(Person[] unsorted, Comparator<Person> comparator);
+import java.util.Comparator;
+
+public interface SortStrategy<T> {
+    void execute(Person[] unsorted, Comparator<T> comparator);
 }

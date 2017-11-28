@@ -1,0 +1,13 @@
+/home/typhoon/labs/JavaLabs/netcracker/java/labs/lab1/src/main/java/Repository/Sort/SortStrategy.java
+/home/typhoon/labs/JavaLabs/netcracker/java/labs/lab1/src/main/java/Repository/Sort/BubbleSort.java
+/home/typhoon/labs/JavaLabs/netcracker/java/labs/lab1/src/main/java/Repository/Sort/AgeComparator.java
+/home/typhoon/labs/JavaLabs/netcracker/java/labs/lab1/src/main/java/Main.java
+/home/typhoon/labs/JavaLabs/netcracker/java/labs/lab1/src/main/java/Repository/Sort/QuickSort.java
+/home/typhoon/labs/JavaLabs/netcracker/java/labs/lab1/src/main/java/Repository/PersonRepository.java
+/home/typhoon/labs/JavaLabs/netcracker/java/labs/lab1/src/main/java/Repository/Sort/SurnameComparator.java
+/home/typhoon/labs/JavaLabs/netcracker/java/labs/lab1/src/main/java/Repository/Sort/IdComparator.java
+/home/typhoon/labs/JavaLabs/netcracker/java/labs/lab1/src/main/java/Repository/Search/PersonPredicates.java
+/home/typhoon/labs/JavaLabs/netcracker/java/labs/lab1/src/main/java/Repository/Sort/InsertionSort.java
+/home/typhoon/labs/JavaLabs/netcracker/java/labs/lab1/src/main/java/Utils/IdGenerator.java
+/home/typhoon/labs/JavaLabs/netcracker/java/labs/lab1/src/main/java/Repository/Sort/Sorter.java
+/home/typhoon/labs/JavaLabs/netcracker/java/labs/lab1/src/main/java/Entity/Person.java

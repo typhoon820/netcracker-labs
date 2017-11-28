@@ -1,10 +1,21 @@
-package Sort;
+package Repository.Sort;
 
 import Entity.Person;
 
-public class IdComparator implements Comparator<Person>{
+import java.util.Comparator;
+
+public class IdComparator implements Comparator<Person> {
     @Override
     public int compare(Person a, Person b) {
+        if(a == null && b == null){
+            return 0;
+        }
+        if(a == null){
+            return 1;
+        }
+        if(b == null){
+            return -1;
+        }
         return a.getId() - b.getId();
     }
 }

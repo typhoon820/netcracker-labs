@@ -1,16 +1,18 @@
-package Sort;
+package Repository.Sort;
 
 import Entity.Person;
 
+import java.util.Comparator;
+
 public class Sorter<T> {
 
-    private SortStrategy sortStrategy;
+    private SortStrategy<T> sortStrategy;
 
-    public void setSortStrategy(SortStrategy sortStrategy){
+    public void setSortStrategy(SortStrategy<T> sortStrategy){
         this.sortStrategy = sortStrategy;
     }
 
-    public Person[] execute(Person[] unsorted, Comparator<T> comparator){
-        return sortStrategy.execute(unsorted, comparator);
+    public void execute(Person[] unsorted, Comparator<T> comparator){
+        sortStrategy.execute(unsorted, comparator);
     }
 }

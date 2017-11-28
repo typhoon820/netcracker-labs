@@ -1,5 +1,6 @@
 package Entity;
 
+import Utils.IdGenerator;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
 
@@ -9,8 +10,8 @@ public class Person {
     private String surname;
     private LocalDate birthDate;
 
-    public Person(int id, String surname, LocalDate birthDate) {
-        this.id = id;
+    public Person(String surname, LocalDate birthDate) {
+        this.id = IdGenerator.getInstance().getId();
         this.surname = surname;
         this.birthDate = birthDate;
     }
@@ -19,9 +20,6 @@ public class Person {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public void setSurname(String surname) {
         this.surname = surname;
