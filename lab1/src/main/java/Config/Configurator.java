@@ -7,6 +7,8 @@ import Repository.Sort.SortStrategy;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
 /**
@@ -32,16 +34,27 @@ public class Configurator {
      */
     public SortStrategy getSortStrategy() {
 
-        switch (props.getProperty("sort")) {
-            case "bubble":
-                return new BubbleSort();
-            case "quick":
-                return new QuickSort();
-            case "insert":
-                return new InsertionSort();
-            default:
-                return new BubbleSort();
+
+        try {
+            Class<?> clazz = Class.forName(props.getProperty("sort"));
+            Constructor<?> constructor = clazz.getConstructor();
+            return (SortStrategy<?>) constructor.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+
+//        switch (props.getProperty("sort")) {
+//            case "bubble":
+//                return new BubbleSort();
+//            case "quick":
+//                return new QuickSort();
+//            case "insert":
+//                return new InsertionSort();
+//            default:
+//                return new BubbleSort();
+//        }
+        return new BubbleSort();
     }
 
     private Configurator() {
