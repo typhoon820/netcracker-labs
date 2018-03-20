@@ -1,54 +1,36 @@
 package Repository;
 
+import Config.Configurator;
 import Entity.Person;
 import Repository.Search.PersonPredicates;
 import Repository.Sort.*;
+import Repository.Sort.Comparators.AgeComparator;
+import Repository.Sort.Comparators.IdComparator;
+import Repository.Sort.Comparators.SurnameComparator;
+import org.apache.log4j.Logger;
 
 
 /**
  * @author Nikita Vasilyev
  */
-public class PersonRepository {
-    private static final int INITIAL_SIZE = 10;
-    private Person[] people;
-    private int lastElem = 0;
-    private Sorter<Person> sorter = new Sorter<>();
+public class PersonRepository extends AbstractRepository<Person, Integer> {
 
-
-    public PersonRepository() {
-        people = new Person[INITIAL_SIZE];
-    }
-
-    /**
-     * Adds a new person to the repository
-     *
-     * @param p Person Entity to be added to repository
-     */
-    public void add(Person p) {
-        if (lastElem == people.length) {
-            resize();
-        }
-        people[lastElem++] = p;
-    }
-
-    /**
-     * @param i index in array of the person to be found
-     * @return Person found by index in array
-     */
-    public Person get(int i) {
-        return people[i];
-    }
+    private static final Logger log = Logger.getLogger(PersonRepository.class);
 
     /**
      * @param id ID of person to be found
      * @return person with certain ID
      */
     public Person getByID(int id) {
-        for(Person p: people){
-            if(p != null && PersonPredicates.hasId(id).test(p)){
-                return p;
+        log.info("Started searching person with ID = " + id);
+        for (Object p : entities) {
+            if (p != null && PersonPredicates.hasId(id).test((Person) p)) {
+                log.info("Person with id = " + id + " was found");
+                return (Person) p;
+
             }
         }
+        log.warn("No person with ID = " + id + " found");
         return null;
     }
 
@@ -57,14 +39,14 @@ public class PersonRepository {
      * @return array pf people of certain age
      */
     public PersonRepository getByAge(int age) {
+        log.info("Started searching person of age = " + age);
         PersonRepository result = new PersonRepository();
-
-        for (int i = 0; i < lastElem; ++i) {
-            if (PersonPredicates.isOfAgeOf(age).test(people[i])){
-                result.add(people[i]);
+        for (int i = 0; i < getLastElem(); ++i) {
+            if (PersonPredicates.isOfAgeOf(age).test((Person) entities[i])) {
+                result.add((Person) entities[i]);
             }
         }
-
+        log.info("Found " + result + " people of age " + age);
         return result;
     }
 
@@ -75,9 +57,9 @@ public class PersonRepository {
      */
     public PersonRepository getBySurName(String surName) {
         PersonRepository result = new PersonRepository();
-        for (int i = 0; i < lastElem; ++i) {
-            if (PersonPredicates.hasName(surName).test(people[i])){
-                result.add(people[i]);
+        for (int i = 0; i < getLastElem(); ++i) {
+            if (PersonPredicates.hasName(surName).test((Person) entities[i])) {
+                result.add((Person) entities[i]);
             }
         }
         return result;
@@ -85,99 +67,69 @@ public class PersonRepository {
 
 
     /**
-     * @return total size of array
-     */
-    public int size() {
-        return people.length;
-    }
-
-
-    /**
-     * @return last not-null element of array
-     */
-    public int elementsCount() {
-        return lastElem;
-    }
-
-
-    public void deleteByID(int id) {
-        boolean found = false;
-        int i = -1;
-        while (!found && i < people.length) {
-            i++;
-            if (people[i] != null && PersonPredicates.hasId(id).test(people[i])) {
-                found = true;
-            }
-        }
-        for (int j = i; j < people.length - 1; j++) {
-            people[j] = people[j + 1];
-        }
-        people[people.length - 1] = null;
-        lastElem--;
-    }
-
-
-    /**
-     * Resizes the people array when there is no more space to add a new one
-     */
-    private void resize() {
-        Person[] temp = new Person[people.length * 2];
-        System.arraycopy(people, 0, temp, 0, people.length);
-        people = temp;
-    }
-
-
-    /**
-     * Sorts people array by surname, Sort strategy by default is BubbleSort
+     * Sorts people array by surname, Sort strategy by default is equal to property file
      */
     public void sortBySurname() {
-        sorter.setSortStrategy(new BubbleSort());
-        sorter.execute(people, new SurnameComparator());
+        sort(new SurnameComparator());
     }
 
     /**
      * Sorts people array by surname
+     *
      * @param strategy sorting algorithm
      */
-    public void sortBySurname(SortStrategy<Person> strategy){
-        sorter.setSortStrategy(strategy);
-        strategy.execute(people, new SurnameComparator());
+    public void sortBySurname(SortStrategy<Person> strategy) {
+        try {
+            sorter.setSortStrategy(strategy);
+            strategy.execute(entities, new SurnameComparator());
+        } catch (NullPointerException e) {
+            log.error(e);
+        }
     }
+
     /**
-     * Sorts people array by Age, Sort strategy by default is BubbleSort
+     * Sorts people array by Age, Sort strategy by default is equal to property file
      */
     public void sortByAge() {
-        sorter.setSortStrategy(new BubbleSort());
-        sorter.execute(people, new AgeComparator());
+        sort(new AgeComparator());
     }
 
 
     /**
      * Sorts people array by age
+     *
      * @param strategy sorting algorithm
      */
-    public void sortByAge(SortStrategy<Person> strategy){
-        sorter.setSortStrategy(strategy);
-        sorter.execute(people, new AgeComparator());
+    public void sortByAge(SortStrategy<Person> strategy) {
+        try {
+            sorter.setSortStrategy(strategy);
+            sorter.execute(entities, new AgeComparator());
+        }
+        catch (NullPointerException e){
+            log.error(e);
+        }
     }
+
     /**
-     * Sorts people array by ID, Sort strategy by default is BubbleSort
+     * Sorts people array by ID, Sort strategy by default is equal to property file
      */
     public void sortById() {
-        sorter.setSortStrategy(new BubbleSort());
-        sorter.execute(people, new IdComparator());
+        sort(new IdComparator());
     }
 
     /**
      * Sorts people array by ID
+     *
      * @param strategy sorting algorithm
      */
-    public void sortById(SortStrategy<Person> strategy){
-        sorter.setSortStrategy(strategy);
-        sorter.execute(people, new IdComparator());
+    public void sortById(SortStrategy<Person> strategy) {
+        try {
+            sorter.setSortStrategy(strategy);
+            sorter.execute(entities, new IdComparator());
+        }
+        catch (NullPointerException e){
+            log.error(e);
+        }
     }
 
-    public Person[] getPeople() {
-        return people;
-    }
 }

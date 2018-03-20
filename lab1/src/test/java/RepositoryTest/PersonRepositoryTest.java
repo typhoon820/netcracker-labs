@@ -1,6 +1,8 @@
 package RepositoryTest;
 
+import Entity.Car;
 import Entity.Person;
+import Repository.CarRepository;
 import Repository.PersonRepository;
 import org.joda.time.LocalDate;
 import org.junit.Test;
@@ -15,7 +17,9 @@ public class PersonRepositoryTest {
     Person p4 = new Person("3a", new LocalDate(2000, 1,1));
     PersonRepository pr = new PersonRepository();
     PersonRepository pr1 = new PersonRepository();
+    Person[] people = new Person[5];
 
+    Person[] people1 = new Person[5];
     @Test
     public void ageIsCorrectlyCounted(){
         Person p = new Person("1213", new LocalDate(2000,10,10));
@@ -31,7 +35,7 @@ public class PersonRepositoryTest {
         pr.add(p4);
         pr1.add(p1);
         pr1.add(p4);
-        assertArrayEquals(pr1.getPeople(), pr.getByAge(17).getPeople());
+        assertArrayEquals(pr1.getAll(people1), pr.getByAge(17).getAll(people));
     }
 
     @Test
@@ -43,7 +47,7 @@ public class PersonRepositoryTest {
         pr1.add(p2);
         pr1.add(p3);
         pr1.add(p1);
-        assertArrayEquals(pr1.getPeople(), pr.getPeople());
+        assertArrayEquals(pr1.getAll(people1), pr.getAll(people));
 
     }
     @Test
@@ -55,7 +59,7 @@ public class PersonRepositoryTest {
         pr1.add(p1);
         pr1.add(p3);
         pr1.add(p2);
-        assertArrayEquals(pr1.getPeople(), pr.getPeople());
+        assertArrayEquals(pr1.getAll(people1), pr.getAll(people));
 
     }
 
@@ -65,7 +69,8 @@ public class PersonRepositoryTest {
         pr.add(p2);
         pr.add(p3);
         pr1.add(p1);
-        assertArrayEquals(pr1.getPeople(), pr.getBySurName("1a").getPeople());
+
+        assertArrayEquals(pr1.getAll(people1), pr.getBySurName("1a").getAll(people1));
     }
 
     @Test
@@ -76,6 +81,8 @@ public class PersonRepositoryTest {
         assertEquals(p1,pr.getByID(p1.getId()));
         assertEquals(null,pr.getByID(-1));
     }
+
+
 
 
 

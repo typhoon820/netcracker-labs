@@ -4,9 +4,8 @@ import Utils.IdGenerator;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
 
-public class Person {
+public class Person extends AbstractEntity<Integer> {
 
-    private int id;
     private String surname;
     private LocalDate birthDate;
 
@@ -16,9 +15,6 @@ public class Person {
         this.birthDate = birthDate;
     }
 
-    public int getId() {
-        return id;
-    }
 
 
     public void setSurname(String surname) {

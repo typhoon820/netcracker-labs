@@ -1,12 +1,12 @@
-package Repository.Sort;
+package Repository.Sort.Comparators;
 
-import Entity.Person;
+import Entity.Car;
 
 import java.util.Comparator;
 
-public class IdComparator implements Comparator<Person> {
+public class HorsePowerComparator implements Comparator<Car> {
     @Override
-    public int compare(Person a, Person b) {
+    public int compare(Car a, Car b) {
         if(a == null && b == null){
             return 0;
         }
@@ -16,6 +16,6 @@ public class IdComparator implements Comparator<Person> {
         if(b == null){
             return -1;
         }
-        return a.getId() - b.getId();
+        return a.getHorsePower() - b.getHorsePower();
     }
 }

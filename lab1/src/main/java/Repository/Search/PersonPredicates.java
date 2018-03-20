@@ -4,7 +4,7 @@ import Entity.Person;
 
 import java.util.function.Predicate;
 
-public class PersonPredicates {
+public class PersonPredicates{
 
     public static Predicate<Person> hasName(String name){
         return person -> person.getSurname().equals(name);

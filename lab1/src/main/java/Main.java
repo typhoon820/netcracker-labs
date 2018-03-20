@@ -1,4 +1,6 @@
+import Entity.Car;
 import Entity.Person;
+import Repository.CarRepository;
 import Repository.PersonRepository;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
@@ -26,6 +28,8 @@ public class Main {
         repository.sortById();
         repository.sortBySurname();
         System.out.println(repository.getByAge(21));
+        Car c = new Car("dd",11);
+        CarRepository cr = new CarRepository();
 
 
         int[] ar = {1,2,3,4};

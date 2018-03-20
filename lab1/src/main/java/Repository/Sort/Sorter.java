@@ -12,7 +12,7 @@ public class Sorter<T> {
         this.sortStrategy = sortStrategy;
     }
 
-    public void execute(Person[] unsorted, Comparator<T> comparator){
+    public void execute(Object[] unsorted, Comparator<T> comparator){
         sortStrategy.execute(unsorted, comparator);
     }
 }

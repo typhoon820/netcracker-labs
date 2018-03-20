@@ -4,14 +4,14 @@ import Entity.Person;
 
 import java.util.Comparator;
 
-public class InsertionSort implements SortStrategy<Person> {
+public class InsertionSort<T> implements SortStrategy<T> {
 
     @Override
-    public void execute(Person[] unsorted, Comparator<Person> comparator) {
+    public void execute(Object[] unsorted, Comparator<T> comparator) {
         for (int i =0; i < unsorted.length; ++i){
-            Person key = unsorted[i];
+            T key = (T)unsorted[i];
             int j = i-1;
-            while( j>= 0 && comparator.compare(unsorted[j], key)>0){
+            while( j>= 0 && comparator.compare((T)unsorted[j], key)>0){
                 unsorted[j+1] = unsorted[j];
                 j = j-1;
             }

@@ -1,10 +1,10 @@
-package Repository.Sort;
+package Repository.Sort.Comparators;
 
 import Entity.Person;
 
 import java.util.Comparator;
 
-public class AgeComparator implements Comparator<Person> {
+public class IdComparator implements Comparator<Person> {
     @Override
     public int compare(Person a, Person b) {
         if(a == null && b == null){
@@ -16,6 +16,6 @@ public class AgeComparator implements Comparator<Person> {
         if(b == null){
             return -1;
         }
-        return a.getAge() - b.getAge();
+        return a.getId() - b.getId();
     }
 }
